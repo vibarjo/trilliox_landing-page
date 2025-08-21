@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: white;
+  text-align: center;
+}
+
+.header {
+  padding: 30px;
+  background: linear-gradient(90deg, #3f00ff, #9d00ff);
+  color: gold;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1.2em;
+  color: #ffcc00;
+}
+
+.glow-btn {
+  background: linear-gradient(90deg, #3f00ff, #9d00ff);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 20px #9d00ff, 0 0 40px #3f00ff;
+}
+
+.socials {
+  margin-top: 20px;
+}
+
+.social {
+  margin: 0 10px;
+  color: gold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.social:hover {
+  color: #9d00ff;
+}

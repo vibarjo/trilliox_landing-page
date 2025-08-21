@@ -4,87 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trilliox - The Next Trillion-Dollar DeFi Empire</title>
-  <link rel="icon" href="assets/favicon.png">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: white;
-      text-align: center;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    h1 {
-      font-size: 3em;
-      background: linear-gradient(45deg, #00c6ff, #7b2ff7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0;
-    }
-    p {
-      font-size: 1.2em;
-      margin: 20px 0;
-    }
-    .btn {
-      background: linear-gradient(45deg, gold, #ff9900);
-      border: none;
-      padding: 12px 25px;
-      font-size: 1.1em;
-      border-radius: 30px;
-      cursor: pointer;
-      color: black;
-      font-weight: bold;
-      transition: transform 0.2s;
-    }
-    .btn:hover {
-      transform: scale(1.1);
-    }
-    footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.8em;
-      color: #bbb;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <img src="assets/logo.png" alt="Trilliox Logo" width="120">
-  <h1>Trilliox</h1>
-  <p>The Next Trillion-Dollar DeFi Empire 🚀🔥</p>
-  <form action="https://formsubmit.co/your-email-here" method="POST"><body>
-  <header>
-    <!-- your logo + nav -->
+  <header class="header">
+    <img src="logo.png" alt="Trilliox Logo" class="logo">
+    <h1>Trilliox</h1>
+    <p class="tagline">The Next Trillion-Dollar DeFi Empire</p>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>Trilliox – The Next Trillion-Dollar DeFi Empire</h1>
-      <p>Join the waitlist to be the first in the future of DeFi.</p>
-    </section>
-
-    <section class="waitlist">
-      <h2>Join the Waitlist 🚀</h2>
-      <form action="https://formsubmit.co/trilliox@gmail.com" method="POST">
-        <input type="text" name="name" required placeholder="Your Name">
-        <input type="email" name="email" required placeholder="Your Email">
-        <button type="submit">Join Now</button>
-      </form>
-    </section>
+  <main class="content">
+    <h2>Join the Future of Finance</h2>
+    <form action="https://formsubmit.co/YOUR_EMAIL" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <input type="hidden" name="_next" value="https://trilliox-landing.vercel.app/thankyou.html">
+      <button type="submit" class="glow-btn">Join Waitlist</button>
+    </form>
+    <div class="socials">
+      <a href="#" class="social">X</a>
+      <a href="#" class="social">Telegram</a>
+      <a href="#" class="social">Discord</a>
+    </div>
   </main>
-
-  <footer>
-    <!-- social links, etc. -->
-  </footer>
-</body>
-
-    <input type="email" name="email" placeholder="Enter your email" required>
-    <input type="hidden" name="_next" value="https://trilliox-landing.vercel.app/thankyou.html">
-    <button type="submit" class="btn">Join the Waitlist</button>
-  </form>
-  <footer>© 2025 Trilliox. All rights reserved.</footer>
 </body>
 </html>
