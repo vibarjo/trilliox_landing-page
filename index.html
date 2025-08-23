@@ -1,51 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trilliox - DeFi Revolution</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0d0d0d;
+      color: white;
+      text-align: center;
+    }
+    header {
+      padding: 30px;
+      font-size: 2em;
+      color: #00ffe0;
+      text-shadow: 0 0 15px #00ffe0;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(0,255,224,0.2);
+      border-radius: 15px;
+      padding: 30px;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: 0 0 25px #00ffe0;
+      transform: translateY(-8px);
+    }
+    .icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+      fill: #00ffe0;
+      filter: drop-shadow(0 0 10px #00ffe0);
+    }
+    h3 {
+      margin-bottom: 10px;
+      color: #00ffe0;
+    }
+    p {
+      font-size: 0.9em;
+      color: #ddd;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Trilliox Logo" class="logo" />
-    <h1>Trilliox</h1>
-    <p>The Next-Gen DeFi Ecosystem</p>
-  </header>
+  <header>🚀 Trilliox Features</header>
 
-  <section class="hero">
-    <h2>Join the DeFi Revolution</h2>
-    <p>Trilliox is building the future of decentralized finance with $TRILLX token, DAO governance, and ecosystem dApps.</p>
-    <form action="https://formsubmit.co/trilliox@gmail.com" method="POST">
-      <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">Join Waitlist</button>
-    </form>
-  </section>
-
-  <section class="cards">
+  <section class="features">
     <div class="card">
-      <h3>🚀 Roadmap</h3>
-      <ul>
-        <li>Phase 1: Token Launch</li>
-        <li>Phase 2: DAO Governance</li>
-        <li>Phase 3: dApp Ecosystem</li>
-        <li>Phase 4: Global Expansion</li>
-      </ul>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L15 11H22L17 16L19 23L12 19L5 23L7 16L2 11H9L12 2Z"/></svg>
+      <h3>Decentralized Finance</h3>
+      <p>Experience borderless and trustless transactions with cutting-edge DeFi solutions.</p>
     </div>
     <div class="card">
-      <h3>📊 Tokenomics</h3>
-      <ul>
-        <li>50% Community</li>
-        <li>20% Development</li>
-        <li>15% Treasury</li>
-        <li>10% Partnerships</li>
-        <li>5% Team</li>
-      </ul>
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm1-17h-2v6l5.25 3.15 1-1.65L13 11V5Z"/></svg>
+      <h3>Lightning Speed</h3>
+      <p>Ultra-fast transactions powered by optimized blockchain protocols.</p>
+    </div>
+    <div class="card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l8.66 5v8.99L12 22l-8.66-5V8.01L12 3Z"/></svg>
+      <h3>Secure by Design</h3>
+      <p>Advanced cryptography ensures your assets are protected at all times.</p>
+    </div>
+    <div class="card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 12l18-12v24L3 12Z"/></svg>
+      <h3>DAO Governance</h3>
+      <p>Shape the future of Trilliox with decentralized community-driven governance.</p>
     </div>
   </section>
-
-  <footer>
-    <p>© 2025 Trilliox. All rights reserved.</p>
-  </footer>
 </body>
 </html>
