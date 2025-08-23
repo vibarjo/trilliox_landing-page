@@ -3,83 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trilliox - DeFi Revolution</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: #0d0d0d;
-      color: white;
-      text-align: center;
-    }
-    header {
-      padding: 30px;
-      font-size: 2em;
-      color: #00ffe0;
-      text-shadow: 0 0 15px #00ffe0;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(0,255,224,0.2);
-      border-radius: 15px;
-      padding: 30px;
-      transition: all 0.3s ease-in-out;
-      cursor: pointer;
-    }
-    .card:hover {
-      box-shadow: 0 0 25px #00ffe0;
-      transform: translateY(-8px);
-    }
-    .icon {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 15px;
-      fill: #00ffe0;
-      filter: drop-shadow(0 0 10px #00ffe0);
-    }
-    h3 {
-      margin-bottom: 10px;
-      color: #00ffe0;
-    }
-    p {
-      font-size: 0.9em;
-      color: #ddd;
-    }
-  </style>
+  <title>Trilliox</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>🚀 Trilliox Features</header>
+  <header>
+    <h1 class="neon-title">Trilliox</h1>
+    <p class="neon-subtitle">Decentralized Finance Reimagined</p>
+  </header>
 
   <section class="features">
-    <div class="card">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L15 11H22L17 16L19 23L12 19L5 23L7 16L2 11H9L12 2Z"/></svg>
-      <h3>Decentralized Finance</h3>
-      <p>Experience borderless and trustless transactions with cutting-edge DeFi solutions.</p>
+    <div class="feature-card">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 7.292m0-7.292V3m0 1.354a4 4 0 100 7.292m0 0V21"/></svg>
+      <h3>DeFi Power</h3>
+      <p>Access the future of decentralized finance with $TRILLX.</p>
     </div>
-    <div class="card">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm1-17h-2v6l5.25 3.15 1-1.65L13 11V5Z"/></svg>
-      <h3>Lightning Speed</h3>
-      <p>Ultra-fast transactions powered by optimized blockchain protocols.</p>
+    <div class="feature-card">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <h3>Security First</h3>
+      <p>Industry-leading blockchain security and transparency.</p>
     </div>
-    <div class="card">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l8.66 5v8.99L12 22l-8.66-5V8.01L12 3Z"/></svg>
-      <h3>Secure by Design</h3>
-      <p>Advanced cryptography ensures your assets are protected at all times.</p>
+    <div class="feature-card">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2v4c0 1.105 1.343 2 3 2s3-.895 3-2v-4c0-1.105-1.343-2-3-2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13h14"/></svg>
+      <h3>Global Access</h3>
+      <p>Join investors and innovators from all over the world.</p>
     </div>
-    <div class="card">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 12l18-12v24L3 12Z"/></svg>
-      <h3>DAO Governance</h3>
-      <p>Shape the future of Trilliox with decentralized community-driven governance.</p>
+    <div class="feature-card">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 018 0v2m-4-6a4 4 0 100-8 4 4 0 000 8z"/></svg>
+      <h3>Community Driven</h3>
+      <p>DAO-powered governance for the people, by the people.</p>
     </div>
   </section>
+
+  <section class="subscribe-panel">
+    <h2>Join the Trilliox Revolution</h2>
+    <p>Get early access to $TRILLX updates</p>
+    <form action="https://formsubmit.co/el/pixira" method="POST" class="subscribe-form">
+      <div class="input-group">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m8-6H8m0 12h8m-8-6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <input type="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <button type="submit">🚀 Join Now</button>
+    </form>
+  </section>
+
 </body>
 </html>

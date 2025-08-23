@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.neon-title {
+  font-size: 3rem;
+  margin-top: 20px;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
+.neon-subtitle {
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
+
+.feature-card {
+  background: #111;
+  border: 2px solid #0ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #0ff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 30px #0ff, 0 0 50px #0ff;
+}
+
+.feature-card svg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  stroke: #0ff;
+}
+
+.subscribe-panel {
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 500px;
+  background: #111;
+  border-radius: 15px;
+  border: 2px solid #0ff;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #0ff;
+}
+
+.subscribe-panel h2 {
+  color: #0ff;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px #0ff;
+}
+
+.subscribe-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #000;
+  border: 2px solid #0ff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 0 15px #0ff inset;
+}
+
+.input-group svg {
+  width: 20px;
+  height: 20px;
+  stroke: #0ff;
+  margin-right: 10px;
+}
+
+input[type="email"] {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  flex: 1;
+}
+
+button {
+  background: #0ff;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+button:hover {
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+  transform: scale(1.05);
+}
