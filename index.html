@@ -1,139 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trilliox</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #0d0d0d;
-      color: #fff;
-      text-align: center;
-    }
-    header {
-      padding: 3rem 1rem;
-    }
-    h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 15px #0ff;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-    }
-    .card {
-      background: #111;
-      border: 1px solid #0ff;
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 0 15px #0ff;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 25px #0ff;
-    }
-    .subscribe-panel {
-      background: #111;
-      margin: 3rem auto;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 500px;
-      border: 1px solid #0ff;
-      box-shadow: 0 0 25px #0ff;
-    }
-    .subscribe-panel h2 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 10px #0ff;
-    }
-    .subscribe-panel p {
-      margin-bottom: 1.5rem;
-      color: #ccc;
-    }
-    .input-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .input-container svg {
-      position: absolute;
-      left: 12px;
-      width: 20px;
-      height: 20px;
-      fill: #0ff;
-    }
-    .input-container input {
-      width: 100%;
-      padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      background: #000;
-      color: #fff;
-      font-size: 1rem;
-      box-shadow: 0 0 10px #0ff inset;
-    }
-    .glow-btn {
-      margin-top: 1rem;
-      padding: 0.8rem 2rem;
-      border: none;
-      border-radius: 10px;
-      background: #0ff;
-      color: #000;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 15px #0ff;
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-    .glow-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #0ff;
-    }
-    footer {
-      margin: 2rem 0;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trilliox Neon</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Welcome to Trilliox</h1>
+    <h1 class="neon-title">Trilliox Revolution</h1>
+    <p class="neon-subtitle">Experience the future of DeFi</p>
   </header>
 
   <section class="features">
-    <div class="card">🚀 Feature 1</div>
-    <div class="card">💎 Feature 2</div>
-    <div class="card">⚡ Feature 3</div>
-    <div class="card">🌌 Feature 4</div>
+    <div class="feature-card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L15 8H9L12 2Z" fill="currentColor"/></svg>
+      <h3>Decentralized Power</h3>
+      <p>Empowering people with blockchain transparency.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" fill="none"/></svg>
+      <h3>Global Access</h3>
+      <p>Finance without borders, accessible worldwide.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4H20V20H4V4Z" stroke="currentColor" fill="none"/></svg>
+      <h3>Secure Vaults</h3>
+      <p>Your assets, secured with next-gen cryptography.</p>
+    </div>
+    <div class="feature-card">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C17 2 22 7 22 12H18L12 22L6 12H2C2 7 7 2 12 2Z" fill="currentColor"/></svg>
+      <h3>Futuristic Growth</h3>
+      <p>Invest in the trillion-dollar revolution.</p>
+    </div>
   </section>
 
   <section class="subscribe-panel">
     <h2>Join the Trilliox Revolution</h2>
     <p>Get early access to $TRILLX updates</p>
-    <form action="https://formsubmit.co/el/pixira" method="POST">
-      <div class="input-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 
-                   1.1.9 2 2 2h16c1.1 0 2-.9 
-                   2-2V6c0-1.1-.9-2-2-2zm0 
-                   4-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-        <input type="email" name="email" placeholder="Enter your email" required>
+    <form action="https://formsubmit.co/el/pixira" method="POST" class="subscribe-form">
+      <div class="input-wrapper">
+        <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4H20V20H4V4Z" stroke="currentColor" fill="none"/><path d="M4 4L12 12L20 4" stroke="currentColor" fill="none"/></svg>
+        <input type="email" name="email" placeholder="Enter your email" required />
       </div>
-      <button class="glow-btn" type="submit">Subscribe 🚀</button>
+      <button type="submit" class="glow-btn">
+        <svg class="rocket-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2C15 2 18 5 18 8C18 11 12 22 12 22C12 22 6 11 6 8C6 5 9 2 12 2Z" fill="currentColor"/>
+          <path d="M12 9C13.1046 9 14 8.10457 14 7C14 5.89543 13.1046 5 12 5C10.8954 5 10 5.89543 10 7C10 8.10457 10.8954 9 12 9Z" fill="black"/>
+        </svg>
+        Join 🚀
+      </button>
     </form>
   </section>
 
-  <footer>
-    © 2025 Trilliox. All Rights Reserved.
-  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
