@@ -1,53 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trilliox Landing Page</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilliox Landing</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="stars"></div>
-  <header class="hero">
-    <h1>Welcome to <span>Trilliox</span></h1>
-    <p>The Future of DeFi Innovation</p>
-  </header>
-
-  <section class="features">
-    <div class="feature-card">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15 8H9L12 2Z"/></svg>
-      <h3>Fast Transactions</h3>
-      <p>Lightning-speed transactions powered by $TRILLX.</p>
-    </div>
-    <div class="feature-card">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22l-7-4v-8l7-4 7 4v8l-7 4z"/></svg>
-      <h3>Secure Blockchain</h3>
-      <p>Advanced encryption ensures ultimate safety.</p>
-    </div>
-    <div class="feature-card">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-      <h3>Global Access</h3>
-      <p>Join a worldwide decentralized finance movement.</p>
-    </div>
-    <div class="feature-card">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M2 12l10 10L22 12 12 2 2 12z"/></svg>
-      <h3>Community Driven</h3>
-      <p>Governance and power in the hands of our users.</p>
-    </div>
-  </section>
-
-  <section class="subscribe">
-    <h2>Join the Trilliox Revolution</h2>
-    <p>Get early access to $TRILLX updates</p>
-    <form action="https://formsubmit.co/el/pixira" method="POST" class="subscribe-form">
-      <div class="input-group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm8 7l8-5H4l8 5z"/></svg>
-        <input type="email" name="email" placeholder="Enter your email" required />
-      </div>
-      <button type="submit">🚀 Join Now</button>
+  <div class="content">
+    <img src="rock-logo.svg" alt="Trilliox Logo" class="logo">
+    <h1 class="headline">Welcome to Trilliox 🚀</h1>
+    <form id="emailForm">
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <button type="submit">Submit</button>
     </form>
-  </section>
-
+    <p id="message"></p>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
