@@ -10,15 +10,11 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  overflow: hidden;
+body {
+  background-color: #0d0f2b; /* This is a dark blue */
 }
 
-.stars::after {
+after {
   content: "";
   position: absolute;
   top: -100%;
