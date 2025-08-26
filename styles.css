@@ -140,13 +140,13 @@ button:hover {
 }
 
 /* Add a hover effect for a more interactive feel */
-.content-box:hover {
+.content-box:"Defi power", Security First"hover {
   box-shadow: 0 0 25px var(--accent-color);
 }
 
 /* Enhance the neon glow on the "Join the Trilliox Revolution" section */
 .call-to-action {
-  box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
+  box-shadow:"Join the Trilliox Revolution"0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
   animation: glow-cta 2s infinite alternate;
 }
 
