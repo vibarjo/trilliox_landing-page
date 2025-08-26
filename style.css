@@ -1,7 +1,7 @@
 
-
+  
 :root {
-  --background-color: #0d0f2b;
+  --background-color: #000000;
   --accent-color: #00ffff; /* A vibrant cyan for the glow */
   --text-color: #ffffff;
 }
@@ -20,7 +20,7 @@ body {
 }
 
 .stars {
-  /* We'll remove this section's content since the background is now a solid color */
+  /* This div is now empty to ensure a solid background */
 }
 
 .content {
@@ -32,20 +32,21 @@ body {
 .logo {
   width: 150px;
   margin-bottom: 20px;
+  filter: hue-rotate(180deg) brightness(1.5); /* Changes the pink to a bright cyan */
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
   0% {
-    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1);
+    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1.5) hue-rotate(180deg);
     transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 15px var(--accent-color)) brightness(1.2);
+    filter: drop-shadow(0 0 15px var(--accent-color)) brightness(2) hue-rotate(180deg);
     transform: scale(1.02);
   }
   100% {
-    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1);
+    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1.5) hue-rotate(180deg);
     transform: scale(1);
   }
 }
@@ -133,5 +134,5 @@ button:hover {
   font-weight: bold;
   color: var(--accent-color);
   text-shadow: 0 0 5px var(--accent-color);
-                        }
-  
+  }
+    
