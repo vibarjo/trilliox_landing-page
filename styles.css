@@ -18,11 +18,8 @@ body {
   color: #aaa;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 40px;
+body {
+  background-color: #0d0f2b; /* This is a dark blue */
 }
 
 .feature-card {
