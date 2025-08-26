@@ -1,170 +1,37 @@
+
+
+:root {
+  --background-color: #0d0f2b;
+  --accent-color: #00ffff; /* A vibrant cyan for the glow */
+  --text-color: #ffffff;
+}
+
 body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
   margin: 0;
-  height: 100vh;
-  background: black;
-  color: white;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: #0d0f2b; /* This is a dark blue */
-}
-
-after {
-  content: "";
-  position: absolute;
-  top: -100%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(white, transparent 70%) repeat;
-  background-size: 3px 3px;
-  animation: drift 60s linear infinite;
-}
-
-@keyframes drift {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
-}
-
-.content {
-  position: relative;
+  min-height: 100vh;
   text-align: center;
-  z-index: 2;
 }
 
-.logo {
-  width: 120px;
-  animation: float 4s ease-in-out infinite;
-}
-
-.headline {
-  font-size: 2rem;
-  margin: 20px 0;
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-form input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-form button {
-  padding: 10px 20px;
-  background: #ff0080;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-#message {
-  margin-top: 15px;
-  font-size: 1rem;
-  color: #0f0;
-}
-/* === RESET & BASE === */
-body {
-  margin: 0;
-  height: 100vh;
-  background: black;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
-/* === STAR BACKGROUND === */
 .stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: black; /* plain space background */
-  overflow: hidden;
-  z-index: 0;
+  /* We'll remove this section's content since the background is now a solid color */
 }
 
-/* Stars created by JS */
-.star {
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-  opacity: 0.8;
-  transition: opacity 1s;
-}
-
-/* === CONTENT === */
 .content {
-  position: relative;
-  text-align: center;
-  z-index: 2;
+  padding: 20px;
+  max-width: 800px;
+  z-index: 1;
 }
 
 .logo {
-  width: 120px;
-  animation: float 4s ease-in-out infinite;
-}
-
-.headline {
-  font-size: 2rem;
-  margin: 20px 0;
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Floating animation for logo + headline */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-/* === FORM === */
-form input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-form button {
-  padding: 10px 20px;
-  background: #ff0080;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-form button:hover {
-  background: #e60073;
-}
-
-#message {
-  margin-top: 15px;
-  font-size: 1rem;
-  color: #0f0;
-}
-
-/* === PARTICLE EFFECT === */
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 3;
-  }
-  /* Animation for the main logo */
-.logo {
+  width: 150px;
+  margin-bottom: 20px;
   animation: pulse 2s infinite;
 }
 
@@ -183,21 +50,47 @@ form button:hover {
   }
 }
 
-/* Glowing effect for all the content boxes */
+.headline {
+  font-size: 3em;
+  color: #fff;
+  text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+}
+
+.section-title {
+  font-size: 1.8em;
+  margin-top: 40px;
+  color: var(--accent-color);
+  text-shadow: 0 0 8px var(--accent-color);
+}
+
+p {
+  font-size: 1.1em;
+  color: #eee;
+  text-shadow: 0 0 5px #ccc;
+}
+
 .content-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
   box-shadow: 0 0 10px var(--accent-color);
   transition: box-shadow 0.3s ease-in-out;
 }
 
-/* Add a hover effect for a more interactive feel */
 .content-box:hover {
   box-shadow: 0 0 25px var(--accent-color);
 }
 
-/* Enhance the neon glow on the "Join the Trilliox Revolution" section */
 .call-to-action {
   box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
   animation: glow-cta 2s infinite alternate;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 40px;
 }
 
 @keyframes glow-cta {
@@ -209,3 +102,36 @@ form button:hover {
   }
 }
 
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: 1px solid var(--accent-color);
+}
+
+button {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#message {
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--accent-color);
+  text-shadow: 0 0 5px var(--accent-color);
+                        }
+  
