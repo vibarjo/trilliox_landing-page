@@ -113,3 +113,49 @@ button:hover {
   box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
   transform: scale(1.05);
 }
+/* Animation for the main logo */
+.logo {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px var(--accent-color)) brightness(1.2);
+    transform: scale(1.02);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1);
+    transform: scale(1);
+  }
+}
+
+/* Glowing effect for all the content boxes */
+.content-box {
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Add a hover effect for a more interactive feel */
+.content-box:hover {
+  box-shadow: 0 0 25px var(--accent-color);
+}
+
+/* Enhance the neon glow on the "Join the Trilliox Revolution" section */
+.call-to-action {
+  box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
+  animation: glow-cta 2s infinite alternate;
+}
+
+@keyframes glow-cta {
+  from {
+    box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
+  }
+  to {
+    box-shadow: 0 0 25px var(--accent-color), 0 0 40px var(--accent-color) inset;
+  }
+  }
+  
