@@ -136,3 +136,32 @@ button:hover {
   text-shadow: 0 0 5px var(--accent-color);
   }
     
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+  border-bottom: 2px solid var(--accent-color);
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2em;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px var(--accent-color);
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.2em;
+  margin-left: 20px;
+  text-shadow: 0 0 5px var(--accent-color);
+  transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+    }
