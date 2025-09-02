@@ -152,15 +152,15 @@ header h1 {
   text-shadow: 0 0 10px var(--accent-color);
 }
 
+
 nav a {
   color: var(--text-color);
   text-decoration: none;
   font-size: 1.2em;
-  margin-left: 20px;
+  margin-left: 15px; /* We are changing the size of the gap here */
   text-shadow: 0 0 5px var(--accent-color);
   transition: color 0.3s ease-in-out;
-}
-
+    }
 nav a:hover {
   color: var(--accent-color);
     }
