@@ -134,17 +134,18 @@ button:hover {
   text-shadow: 0 0 5px var(--accent-color);
   }
     
+
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* This correctly separates the logo and the links */
   align-items: center;
   width: 100%;
   padding: 20px;
-  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+  box-sizing: border-box;
   border-bottom: 2px solid var(--accent-color);
   margin-bottom: 40px;
-}
-
+  }
+                   
 header h1 {
   font-size: 2em;
   color: var(--accent-color);
