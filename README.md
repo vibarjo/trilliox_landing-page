@@ -1,4 +1,4 @@
-# Trilliox Landing Page
+# Genesis ledger Landing Page
 
 🚀 Simple waitlist landing page for Trilliox, built with Tailwind CSS and FormSubmit.
 
