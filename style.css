@@ -1,189 +1,145 @@
-
-  
-:root {
-  --background-color: #000000;
-  --accent-color: #00ffff; /* A vibrant cyan for the glow */
-  --text-color: #ffffff;
-}
-
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  text-align: center;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-
-.stars {
-  /* This div is now empty to ensure a solid background */
+.header {
+    background-color: #0d0d0d;
+    padding: 20px;
 }
 
-.content {
-  padding: 20px;
-  max-width: 800px;
-  z-index: 1;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.logo {
-  width: 150px;
-  margin-bottom: 20px;
-  filter: hue-rotate(180deg) brightness(1.5); /* Changes the pink to a bright cyan */
-  animation: pulse 2s infinite;
+.logo-link img {
+    height: 50px;
 }
 
-@keyframes pulse {
-  0% {
-    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1.5) hue-rotate(180deg);
-    transform: scale(1);
-  }
-  50% {
-    filter: drop-shadow(0 0 15px var(--accent-color)) brightness(2) hue-rotate(180deg);
-    transform: scale(1.02);
-  }
-  100% {
-    filter: drop-shadow(0 0 5px var(--accent-color)) brightness(1.5) hue-rotate(180deg);
-    transform: scale(1);
-  }
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin: 0 15px;
 }
 
-.headline {
-  font-size: 3em;
-  color: #fff;
-  text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.header-icons a {
+    color: #fff;
+    margin-left: 15px;
+    font-size: 1.5em;
+}
+
+.main-content {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.main-heading {
+    font-size: 3em;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    color: #00e0ff;
+    letter-spacing: 2px;
+}
+
+.tagline {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #c9c9c9;
+}
+
+.cta-button {
+    background-color: #00e0ff;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.section {
+    padding: 50px 20px;
 }
 
 .section-title {
-  font-size: 1.8em;
-  margin-top: 40px;
-  color: var(--accent-color);
-  text-shadow: 0 0 8px var(--accent-color);
-}
-
-p {
-  font-size: 1.1em;
-  color: #eee;
-  text-shadow: 0 0 5px #ccc;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+    color: #00e0ff;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .content-box {
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid var(--accent-color);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 10px var(--accent-color);
-  transition: box-shadow 0.3s ease-in-out;
+    border: 2px solid #00e0ff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: center;
 }
 
-.content-box:hover {
-  box-shadow: 0 0 25px var(--accent-color);
+.form-section {
+    background-color: #0d0d0d;
 }
 
-.call-to-action {
-  box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
-  animation: glow-cta 2s infinite alternate;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid var(--accent-color);
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 40px;
+.contact-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-@keyframes glow-cta {
-  from {
-    box-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color) inset;
-  }
-  to {
-    box-shadow: 0 0 25px var(--accent-color), 0 0 40px var(--accent-color) inset;
-  }
+.contact-form input, .contact-form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
 }
 
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: none;
+.contact-form input {
+    width: 300px;
 }
 
-input {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
-  border: 1px solid var(--accent-color);
+.contact-form button {
+    background-color: #00e0ff;
+    color: #000;
+    cursor: pointer;
 }
 
-button {
-  background-color: var(--accent-color);
-  color: var(--background-color);
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-#message {
-  margin-top: 10px;
-  font-weight: bold;
-  color: var(--accent-color);
-  text-shadow: 0 0 5px var(--accent-color);
-  }
-    
-
-header {
-  display: flex;
-  justify-content: space-between; /* This correctly separates the logo and the links */
-  align-items: center;
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-  border-bottom: 2px solid var(--accent-color);
-  margin-bottom: 40px;
-  }
-                   
-header h1 {
-  font-size: 2em;
-  color: var(--accent-color);
-  text-shadow: 0 0 10px var(--accent-color);
-}
-
-
-nav a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 1.2em;
-  margin-left: 15px; /* We are changing the size of the gap here */
-  text-shadow: 0 0 5px var(--accent-color);
-  transition: color 0.3s ease-in-out;
-    }
-nav a:hover {
-  color: var(--accent-color);
-    }
 /* New styles for the About page */
 
 .container {
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     color: #e0e0e0;
 }
 
 h1, h2 {
     font-family: 'Times New Roman', Times, serif;
-    color: #00bcd4;
+    color: #00e0ff;
     font-size: 2.5em;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 h2 {
     font-size: 2em;
     margin-top: 40px;
+    text-align: left;
 }
 
 p {
@@ -191,5 +147,3 @@ p {
     line-height: 1.6;
     margin-bottom: 20px;
 }
-
-  
