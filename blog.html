@@ -80,7 +80,8 @@
         container.innerHTML = 'Loading posts...';
         try {
             // Corrected URL with lowercase 't'
-            const response = await fetch('https://api.github.com/repos/vibarjo-s-projects/trilliox_landing-page/contents/blog-posts', {
+            const response =  {await fetch('https://api.github.com/repos/vibarjo-s-projects/trilliox_landing-page/contents/blog-posts', { ... });
+                                                                                                                                                   
                 headers: {
                     'Accept': 'application/vnd.github.v3+json'
                 }
