@@ -1,7 +1,7 @@
 
 backend:
   name: github
-  repo: vibarjo-s-projects/trilliox_landing-page
+  repo: vibarjo/trilliox_landing-page
   branch: main
 
 media_folder: "assets/images/uploads"
