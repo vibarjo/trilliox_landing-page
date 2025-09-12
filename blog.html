@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +33,45 @@
 
         <section class="blog-posts">
             <h2>Latest Posts</h2>
-            <div class="blog-post-summary">
-                <h3><a href="what-is-defi.html">What is DeFi? A Beginner's Guide</a></h3>
-                <p>Learn the fundamentals of decentralized finance, from transparency to smart contracts...</p>
-                <a href="what-is-defi.html">Read More</a>
-            </div>
+            <div id="blog-posts-container"></div>
         </section>
     </main>
+    <script>
+        async function fetchPosts() {
+            const container = document.getElementById('blog-posts-container');
+            container.innerHTML = 'Loading posts...';
+            try {
+                const response = await fetch('https://api.github.com/repos/vibarjo-s-projects/trilliox-landing-page/contents/blog-posts', {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.statusText}`);
+                }
+                const files = await response.json();
+                const blogPosts = files.filter(file => file.name.endsWith('.md')).reverse();
 
+                if (blogPosts.length === 0) {
+                    container.innerHTML = '<p>No blog posts published yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                for (const post of blogPosts) {
+                    const postContentResponse = await fetch(post.download_url);
+                    const markdown = await postContentResponse.text();
+
+                    const html = `<div class="blog-post-summary"><h3><a href="blog-posts/${post.name.replace('.md', '.html')}">${post.name.replace('.md', '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</a></h3><p>${markdown.substring(0, 150)}...</p><a href="blog-posts/${post.name.replace('.md', '.html')}">Read More</a></div>`;
+                    container.innerHTML += html;
+                }
+            } catch (error) {
+                console.error("Error fetching blog posts:", error);
+                container.innerHTML = `<p>Error loading posts: ${error.message}</p>`;
+            }
+        }
+        fetchPosts();
+    </script>
 </body>
-</html>
+                                                       </html>
+    
