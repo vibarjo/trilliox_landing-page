@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet | Genesis Ledger</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #00ffff;
+    }
+    button {
+      background-color: #00ffff;
+      color: #000; /* black text so visible */
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px;
+    }
+    #walletInfo {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #ccc;
+    }
+    #walletInfo button {
+      background: #333;
+      color: #00ffff;
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+</head>
+<body>
+  <h1>Connect Your Wallet</h1>
+  <p>Connect to MetaMask to use Genesis Ledger's decentralized features.</p>
+
+  <!-- Connect Wallet button (always visible at start) -->
+  <button id="connectWalletBtn">Connect Wallet</button>
+
+  <!-- Wallet info (hidden until connected) -->
+  <div id="walletInfo" style="display:none;">
+    <p><strong>Address:</strong> 
+      <span id="userAddress"></span>
+      <button onclick="copyAddress()">Copy</button>
+    </p>
+    <p><strong>Network:</strong> <span id="network"></span></p>
+    <p><strong>Balance:</strong> <span id="userBalance"></span> ETH</p>
+    <button onclick="disconnectWallet()">Disconnect</button>
+  </div>
+
+  <script>
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+    const walletInfo = document.getElementById('walletInfo');
+    const userAddressEl = document.getElementById('userAddress');
+    const networkEl = document.getElementById('network');
+    const balanceEl = document.getElementById('userBalance');
+
+    let currentAccount = null;
+    let provider;
+
+    // Connect wallet
+    async function connectWallet() {
+      if (typeof window.ethereum !== "undefined") {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        currentAccount = await signer.getAddress();
+
+        // Show account info
+        userAddressEl.textContent = currentAccount;
+        connectWalletBtn.style.display = "none";
+        walletInfo.style.display = "block";
+
+        // Show network
+        const network = await provider.getNetwork();
+        networkEl.textContent = network.name;
+
+        // Show balance
+        const balance = await provider.getBalance(currentAccount);
+        balanceEl.textContent = ethers.utils.formatEther(balance).slice(0, 6);
+      } else {
+        alert("MetaMask not found. Please install it.");
+      }
+    }
+
+    // Copy address
+    function copyAddress() {
+      navigator.clipboard.writeText(currentAccount);
+      alert("Address copied: " + currentAccount);
+    }
+
+    // Disconnect wallet
+    function disconnectWallet() {
+      currentAccount = null;
+      walletInfo.style.display = "none";
+      connectWalletBtn.style.display = "inline-block";
+    }
+
+    connectWalletBtn.addEventListener('click', connectWallet);
+  </script>
+</body>
+</html>
