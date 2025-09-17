@@ -1,3 +1,6 @@
+
+
+export default WalletConnect;
 import React, { useState } from "react";
 
 const WalletConnect = () => {
@@ -39,4 +42,5 @@ const WalletConnect = () => {
   );
 };
 
+// If you want to use this as a standalone page, you can export it as default and render it in your App.js or any main file.
 export default WalletConnect;
