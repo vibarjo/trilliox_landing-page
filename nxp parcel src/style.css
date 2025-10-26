@@ -1,1 +1,56 @@
+.wallet-section {
+    text-align: center;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
 
+.connect-btn {
+    background-color: #4c00ff; /* MetaMask purple */
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.connect-btn:hover {
+    background-color: #3a00cc;
+}
+
+.connect-btn:disabled {
+    background-color: #cccccc;
+}
+
+.account {
+    background: #f4f4f4;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    margin-top: 1rem;
+    font-family: monospace;
+    word-break: break-all;
+}
+
+.desc {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Optional: Hide/show for loading */
+.loading {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 1rem auto;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4c00ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
