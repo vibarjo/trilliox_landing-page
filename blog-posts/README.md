@@ -1,6 +1,6 @@
-# Genesis Ledger
+# NYVRIX 
 
-A modern landing page for Genesis Ledger, a decentralized finance (DeFi) company. This project showcases the company's services, team, and latest insights through an integrated blog.
+A modern landing page for Nyvrix, a decentralized finance (DeFi) company. This project showcases the company's services, team, and latest insights through an integrated blog.
 
 ## About the Project
 
