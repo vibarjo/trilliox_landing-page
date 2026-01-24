@@ -31,4 +31,4 @@ Change the `_next` hidden input to your Vercel domain:
 3. Deploy → Your site goes live instantly 🎉.
 
 ---
-✅ Done! Your Trilliox waitlist page is live and collecting emails.
+✅ Done! Your NYVRIZ waitlist page is live and collecting emails.
