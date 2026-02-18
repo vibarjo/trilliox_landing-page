@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYVRIX - Wallet Connect with Ethers.js</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .wallet-container {
+            background: rgba(15, 12, 41, 0.8);
+            border: 2px solid #00ffea;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 255, 234, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .wallet-header h1 {
+            font-size: 2em;
+            color: #00ffea;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 234, 0.5);
+        }
+
+        .wallet-header p {
+            color: #ccc;
+            font-size: 0.95em;
+        }
+
+        .connect-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00ffea 0%, #00c6ff 100%);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .connect-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 234, 0.3);
+        }
+
+        .account-display {
+            background: rgba(0, 255, 234, 0.1);
+            border: 1px solid #00ffea;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .account-info {
+            margin-bottom: 15px;
+        }
+
+        .account-info label {
+            display: block;
+            color: #999;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .account-info p {
+            color: #00ffea;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .error-message {
+            background: rgba(255, 68, 68, 0.2);
+            border: 1px solid #ff4444;
+            color: #ff9999;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wallet-container">
+        <div class="wallet-header">
+            <h1 id="status">Connect Your Wallet</h1>
+            <p id="description">Link your MetaMask to access NYVRIX features.</p>
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+
+        <button id="connect-btn" class="connect-btn">Connect MetaMask</button>
+
+        <div id="account-display" class="account-display">
+            <h3>✓ Wallet Connected</h3>
+            <div class="account-info">
+                <label>Address</label>
+                <p id="wallet-address"></p>
+            </div>
+            <div class="account-info">
+                <label>Balance (ETH)</label>
+                <p id="wallet-balance">Loading...</p>
+            </div>
+            <div class="account-info">
+                <label>Network</label>
+                <p id="wallet-network">Loading...</p>
+            </div>
+            <button id="disconnect-btn" style="width: 100%; padding: 10px; background: rgba(255,68,68,0.2); border: 1px solid #ff4444; color: #ff4444; border-radius: 8px; cursor: pointer;">Disconnect</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js"></script>
+    <script>
+        // DOM Elements
+        const statusEl = document.getElementById('status');
+        const descEl = document.getElementById('description');
+        const connectBtn = document.getElementById('connect-btn');
+        const accountEl = document.getElementById('account-display');
+        const disconnectBtn = document.getElementById('disconnect-btn');
+        const errorMessageEl = document.getElementById('error-message');
+
+        // State
+        let provider = null;
+        let signer = null;
+        let userAddress = null;
+
+        // Utility Functions
+        function showError(message) {
+            errorMessageEl.textContent = `⚠️ ${message}`;
+            errorMessageEl.style.display = 'block';
+            setTimeout(() => { errorMessageEl.style.display = 'none'; }, 5000);
+        }
+
+        function isMetaMaskInstalled() {
+            return Boolean(window.ethereum && window.ethereum.isMetaMask);
+        }
+
+        function getNetworkName(chainId) {
+            const networks = {
+                1: 'Ethereum Mainnet', 5: 'Goerli Testnet', 11155111: 'Sepolia Testnet',
+                137: 'Polygon', 56: 'BSC Mainnet', 43114: 'Avalanche C-Chain'
+            };
+            return networks[chainId] || `Chain ID: ${chainId}`;
+        }
+
+        // Main Functions
+        async function connectWallet() {
+            try {
+                if (!isMetaMaskInstalled()) {
+                    showError('MetaMask is not installed');
+                    return;
+                }
+
+                connectBtn.disabled = true;
+                connectBtn.textContent = 'Connecting...';
+
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (accounts.length === 0) throw new Error('No accounts found');
+
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = await provider.getSigner();
+                userAddress = await signer.getAddress();
+
+                // Fetch wallet info
+                const balanceWei = await provider.getBalance(userAddress);
+                const userBalance = ethers.utils.formatEther(balanceWei);
+                const network = await provider.getNetwork();
+
+                // Update UI
+                statusEl.textContent = 'Wallet Connected!';
+                descEl.textContent = `Welcome, ${userAddress.substring(0, 6)}...`;
+                connectBtn.style.display = 'none';
+                accountEl.style.display = 'block';
+
+                document.getElementById('wallet-address').textContent = userAddress;
+                document.getElementById('wallet-balance').textContent = `${parseFloat(userBalance).toFixed(4)} ETH`;
+                document.getElementById('wallet-network').textContent = getNetworkName(network.chainId);
+
+            } catch (error) {
+                console.error('Connection error:', error);
+                showError(error.message || 'Failed to connect wallet');
+                connectBtn.disabled = false;
+                connectBtn.textContent = 'Connect MetaMask';
+            }
+        }
+
+        function disconnectWallet() {
+            provider = null;
+            signer = null;
+            userAddress = null;
+
+            connectBtn.style.display = 'block';
+            connectBtn.disabled = false;
+            connectBtn.textContent = 'Connect MetaMask';
+            accountEl.style.display = 'none';
+
+            statusEl.textContent = 'Connect Your Wallet';
+            descEl.textContent = 'Link your MetaMask to access NYVRIX features.';
+        }
+
+        // Event Listeners
+        connectBtn.addEventListener('click', connectWallet);
+        disconnectBtn.addEventListener('click', disconnectWallet);
+
+        // Listen for account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else if (accounts[0] !== userAddress) {
+                    userAddress = accounts[0];
+                    connectWallet();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
