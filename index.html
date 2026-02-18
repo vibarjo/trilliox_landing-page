@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,30 +7,109 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/x-icon" href="logo_dark_small.png">
+    <style>
+        /* Wallet Button Styling */
+        .wallet-btn {
+            background: linear-gradient(135deg, #00ffea 0%, #00c6ff 100%);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .wallet-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 234, 0.3);
+        }
+
+        .wallet-btn.connected {
+            background: #00ff00;
+            font-size: 0.85em;
+        }
+
+        .wallet-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wallet-modal.active {
+            display: flex;
+        }
+
+        .wallet-modal-content {
+            background: #1a1a2e;
+            border: 2px solid #00ffea;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .wallet-modal-content h2 {
+            color: #00ffea;
+            margin-bottom: 20px;
+        }
+
+        .wallet-info {
+            background: rgba(0, 255, 234, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+
+        .close-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            background: #ff6666;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
-    <a href="index.html" class="logo-link"><img src="logo_dark_small.png" alt="NYVRIX Logo"></a>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="partners.html">Partners</a>
-    <a href="blog.html">Blog</a>
-    <a href="team.html">Our Team</a>
-    <div class="header-icons">
-        
-    <div class="socials">
-    <a href="https://x.com/NYVRIXFi?t=GKLuBe7OV5QiRTDiRiNcYw&s=09" class="fa fa-twitter"></a>
-    <a href="https://www.linkedin.com/in/nyvrix-undefined-581b39394" class="fa fa-linkedin"></a>
-    <a href="https://www.instagram.com/nyvrix5?igsh=MTk4bWUxaXJtcWVkMA==" class="fa fa-instagram"></a>
-</div>
-
-                                                                                     </nav>
-        
-        
+            <a href="index.html" class="logo-link"><img src="logo_dark_small.png" alt="NYVRIX Logo"></a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="partners.html">Partners</a>
+            <a href="blog.html">Blog</a>
+            <a href="team.html">Our Team</a>
+            <div class="header-icons">
+                <div class="socials">
+                    <a href="https://x.com/NYVRIXFi?t=GKLuBe7OV5QiRTDiRiNcYw&s=09" class="fa fa-twitter"></a>
+                    <a href="https://www.linkedin.com/in/nyvrix-undefined-581b39394" class="fa fa-linkedin"></a>
+                    <a href="https://www.instagram.com/nyvrix5?igsh=MTk4bWUxaXJtcWVkMA==" class="fa fa-instagram"></a>
+                </div>
+                <!-- NEW: Wallet Button -->
+                <button id="wallet-btn" class="wallet-btn">Connect Wallet</button>
+            </div>
+        </nav>
     </header>
-    
+
     <div class="main-content">
         <h1 class="main-heading">Welcome to NYVRIX</h1>
         <p class="tagline">The Future of Decentralized Finance.</p>
@@ -60,14 +138,165 @@
         <div class="container">
             <h2 class="section-title">Stay Connected</h2>
             <form action="https://formsubmit.co/genesisledger87@gmail.com" method="POST">
-        
-                
                 <input type="email" name="email" placeholder=" Enter your email" required>
                 <button type="submit">Subscribe</button>
             </form>
         </div>
     </section>
 
+    <!-- Wallet Modal -->
+    <div id="wallet-modal" class="wallet-modal">
+        <div class="wallet-modal-content">
+            <h2 id="modal-title">Connect Your Wallet</h2>
+            <p id="modal-description">Link MetaMask to access NYVRIX features</p>
+            
+            <div id="wallet-info" style="display: none;">
+                <div class="wallet-info">
+                    <strong>Address:</strong><br>
+                    <span id="wallet-address"></span>
+                </div>
+                <div class="wallet-info">
+                    <strong>Balance:</strong><br>
+                    <span id="wallet-balance"></span>
+                </div>
+                <div class="wallet-info">
+                    <strong>Network:</strong><br>
+                    <span id="wallet-network"></span>
+                </div>
+            </div>
+
+            <div id="error-msg" style="color: #ff4444; margin: 10px 0; display: none;"></div>
+
+            <button id="connect-wallet-btn" class="wallet-btn" style="width: 100%; margin: 15px 0;">Connect MetaMask</button>
+            <button id="disconnect-wallet-btn" class="close-btn" style="width: 100%; margin: 10px 0; display: none;">Disconnect</button>
+            <button class="close-btn" onclick="document.getElementById('wallet-modal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js"></script>
+    <script>
+        // Wallet Variables
+        let provider = null;
+        let signer = null;
+        let userAddress = null;
+
+        // DOM Elements
+        const walletBtn = document.getElementById('wallet-btn');
+        const walletModal = document.getElementById('wallet-modal');
+        const connectWalletBtn = document.getElementById('connect-wallet-btn');
+        const disconnectWalletBtn = document.getElementById('disconnect-wallet-btn');
+        const walletInfo = document.getElementById('wallet-info');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Open Modal
+        walletBtn.addEventListener('click', () => {
+            walletModal.classList.add('active');
+        });
+
+        // Close Modal on outside click
+        walletModal.addEventListener('click', (e) => {
+            if (e.target === walletModal) {
+                walletModal.classList.remove('active');
+            }
+        });
+
+        // Connect Wallet Function
+        async function connectWallet() {
+            try {
+                if (!window.ethereum) {
+                    showError('MetaMask is not installed. Please install it!');
+                    return;
+                }
+
+                connectWalletBtn.textContent = 'Connecting...';
+                connectWalletBtn.disabled = true;
+
+                // Request accounts
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (accounts.length === 0) throw new Error('No accounts found');
+
+                // Create provider and signer
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = await provider.getSigner();
+                userAddress = await signer.getAddress();
+
+                // Fetch balance and network
+                const balanceWei = await provider.getBalance(userAddress);
+                const balance = ethers.utils.formatEther(balanceWei);
+                const network = await provider.getNetwork();
+
+                // Update UI
+                displayWalletInfo(userAddress, balance, network.chainId);
+                walletBtn.textContent = `✓ ${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+                walletBtn.classList.add('connected');
+
+                connectWalletBtn.style.display = 'none';
+                disconnectWalletBtn.style.display = 'block';
+                walletInfo.style.display = 'block';
+                errorMsg.style.display = 'none';
+
+                console.log('Wallet connected:', userAddress);
+
+            } catch (error) {
+                console.error('Connection error:', error);
+                showError(error.message || 'Failed to connect wallet');
+            } finally {
+                connectWalletBtn.textContent = 'Connect MetaMask';
+                connectWalletBtn.disabled = false;
+            }
+        }
+
+        // Disconnect Wallet Function
+        function disconnectWallet() {
+            provider = null;
+            signer = null;
+            userAddress = null;
+
+            walletBtn.textContent = 'Connect Wallet';
+            walletBtn.classList.remove('connected');
+
+            connectWalletBtn.style.display = 'block';
+            disconnectWalletBtn.style.display = 'none';
+            walletInfo.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            console.log('Wallet disconnected');
+        }
+
+        // Display Wallet Info
+        function displayWalletInfo(address, balance, chainId) {
+            const networks = {
+                1: 'Ethereum Mainnet',
+                5: 'Goerli Testnet',
+                11155111: 'Sepolia Testnet',
+                137: 'Polygon',
+                56: 'BSC Mainnet'
+            };
+
+            document.getElementById('wallet-address').textContent = address;
+            document.getElementById('wallet-balance').textContent = `${parseFloat(balance).toFixed(4)} ETH`;
+            document.getElementById('wallet-network').textContent = networks[chainId] || `Chain ID: ${chainId}`;
+        }
+
+        // Show Error
+        function showError(message) {
+            errorMsg.textContent = `⚠️ ${message}`;
+            errorMsg.style.display = 'block';
+        }
+
+        // Event Listeners
+        connectWalletBtn.addEventListener('click', connectWallet);
+        disconnectWalletBtn.addEventListener('click', disconnectWallet);
+
+        // Listen for account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                }
+            });
+        }
+    </script>
 </body>
-               </html>
+    </html>
        
