@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYVRIX - Wallet Connect</title>
+    <style>
+        .wallet-btn {
+            background: linear-gradient(135deg, #00ffea 0%, #00c6ff 100%);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .wallet-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 234, 0.3);
+        }
+
+        .wallet-btn.connected {
+            background: #00ff00;
+            font-size: 0.85em;
+        }
+
+        .wallet-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wallet-modal.active {
+            display: flex;
+        }
+
+        .wallet-modal-content {
+            background: #1a1a2e;
+            border: 2px solid #00ffea;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            color: #fff;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .wallet-modal-content h2 {
+            color: #00ffea;
+            margin-bottom: 20px;
+        }
+
+        .wallet-option {
+            background: rgba(0, 255, 234, 0.1);
+            border: 1px solid #00ffea;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wallet-option:hover {
+            background: rgba(0, 255, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .wallet-option img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .wallet-info {
+            background: rgba(0, 255, 234, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+            display: none;
+        }
+
+        .close-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .close-btn:hover {
+            background: #ff6666;
+        }
+
+        #wc-modal {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .spinner {
+            border: 3px solid #00ffea;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Wallet Button in Navbar -->
+    <button id="wallet-btn" class="wallet-btn">Connect Wallet</button>
+
+    <!-- Wallet Modal -->
+    <div id="wallet-modal" class="wallet-modal">
+        <div class="wallet-modal-content">
+            <h2 id="modal-title">Connect Your Wallet</h2>
+            <p id="modal-description">Choose a wallet to connect to NYVRIX</p>
+            
+            <!-- Wallet Options -->
+            <div id="wallet-options" style="display: block;">
+                <div class="wallet-option" onclick="connectWithWalletConnect()">
+                    <img src="https://avatars.githubusercontent.com/u/37784886?s=200&v=4" alt="WalletConnect">
+                    <strong>WalletConnect</strong>
+                    <p style="font-size: 0.8em; margin: 5px 0 0 0;">Works with MetaMask & all wallets</p>
+                </div>
+
+                <div class="wallet-option" onclick="connectWithMetaMask()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask">
+                    <strong>MetaMask Extension</strong>
+                    <p style="font-size: 0.8em; margin: 5px 0 0 0;">Desktop browser only</p>
+                </div>
+            </div>
+
+            <!-- Connected Info -->
+            <div id="wallet-info" class="wallet-info">
+                <div style="margin-bottom: 10px;">
+                    <strong>Address:</strong><br>
+                    <span id="wallet-address"></span>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>Balance:</strong><br>
+                    <span id="wallet-balance"></span>
+                </div>
+                <div>
+                    <strong>Network:</strong><br>
+                    <span id="wallet-network"></span>
+                </div>
+            </div>
+
+            <div id="error-msg" style="color: #ff4444; margin: 10px 0; display: none;"></div>
+            <div id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Connecting...</p>
+            </div>
+
+            <button id="disconnect-btn" class="close-btn" style="display: none; background: #ff6666;">Disconnect Wallet</button>
+            <button class="close-btn" onclick="closeWalletModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/ethers-io/ethers.js/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+
+    <script>
+        let provider = null;
+        let signer = null;
+        let userAddress = null;
+
+        const walletBtn = document.getElementById('wallet-btn');
+        const walletModal = document.getElementById('wallet-modal');
+        const walletInfo = document.getElementById('wallet-info');
+        const walletOptions = document.getElementById('wallet-options');
+        const errorMsg = document.getElementById('error-msg');
+        const loading = document.getElementById('loading');
+        const disconnectBtn = document.getElementById('disconnect-btn');
+
+        // Open Modal
+        walletBtn.addEventListener('click', () => {
+            walletModal.classList.add('active');
+        });
+
+        function closeWalletModal() {
+            walletModal.classList.remove('active');
+        }
+
+        function showError(message) {
+            errorMsg.innerHTML = `⚠️ ${message}`;
+            errorMsg.style.display = 'block';
+        }
+
+        function showLoading(show) {
+            loading.style.display = show ? 'block' : 'none';
+        }
+
+        // Connect with WalletConnect
+        async function connectWithWalletConnect() {
+            try {
+                showLoading(true);
+                walletOptions.style.display = 'none';
+                errorMsg.style.display = 'none';
+
+                console.log('Initializing WalletConnect...');
+
+                // Create WalletConnect provider
+                provider = new WalletConnectProvider.default({
+                    infuraId: "8043bb2cf99347b1bfadfb3780dda0d9",
+                    rpc: {
+                        1: "https://mainnet.infura.io/v3/8043bb2cf99347b1bfadfb3780dda0d9",
+                        5: "https://goerli.infura.io/v3/8043bb2cf99347b1bfadfb3780dda0d9",
+                        137: "https://polygon-rpc.com",
+                        80001: "https://rpc-mumbai.maticvigil.com"
+                    }
+                });
+
+                console.log('Requesting accounts...');
+
+                // Enable provider
+                await provider.enable();
+
+                // Create ethers provider
+                const ethersProvider = new ethers.providers.Web3Provider(provider);
+                signer = ethersProvider.getSigner();
+                userAddress = await signer.getAddress();
+
+                console.log('✓ Connected with WalletConnect:', userAddress);
+
+                // Get balance and network
+                const balanceWei = await ethersProvider.getBalance(userAddress);
+                const balance = ethers.utils.formatEther(balanceWei);
+                const network = await ethersProvider.getNetwork();
+
+                // Update UI
+                displayWalletInfo(userAddress, balance, network.chainId);
+                updateConnectedUI();
+
+                showLoading(false);
+
+            } catch (error) {
+                console.error('❌ WalletConnect error:', error);
+                showError(error.message || 'Failed to connect with WalletConnect');
+                walletOptions.style.display = 'block';
+                showLoading(false);
+            }
+        }
+
+        // Connect with MetaMask
+        async function connectWithMetaMask() {
+            try {
+                showLoading(true);
+                walletOptions.style.display = 'none';
+                errorMsg.style.display = 'none';
+
+                console.log('Checking for MetaMask...');
+
+                if (!window.ethereum) {
+                    throw new Error('MetaMask not detected. Please install MetaMask extension or use WalletConnect.');
+                }
+
+                console.log('Requesting MetaMask connection...');
+
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+
+                if (accounts.length === 0) {
+                    throw new Error('No accounts found in MetaMask');
+                }
+
+                userAddress = accounts[0];
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = await provider.getSigner();
+
+                console.log('✓ Connected with MetaMask:', userAddress);
+
+                // Get balance and network
+                const balanceWei = await provider.getBalance(userAddress);
+                const balance = ethers.utils.formatEther(balanceWei);
+                const network = await provider.getNetwork();
+
+                // Update UI
+                displayWalletInfo(userAddress, balance, network.chainId);
+                updateConnectedUI();
+
+                showLoading(false);
+
+            } catch (error) {
+                console.error('❌ MetaMask error:', error);
+                showError(error.message || 'Failed to connect with MetaMask');
+                walletOptions.style.display = 'block';
+                showLoading(false);
+            }
+        }
+
+        function displayWalletInfo(address, balance, chainId) {
+            const networks = {
+                1: 'Ethereum Mainnet',
+                5: 'Goerli Testnet',
+                11155111: 'Sepolia Testnet',
+                137: 'Polygon Mainnet',
+                80001: 'Polygon Mumbai',
+                56: 'BSC Mainnet'
+            };
+
+            document.getElementById('wallet-address').textContent = address;
+            document.getElementById('wallet-balance').textContent = `${parseFloat(balance).toFixed(4)} ETH`;
+            document.getElementById('wallet-network').textContent = networks[chainId] || `Chain ID: ${chainId}`;
+        }
+
+        function updateConnectedUI() {
+            walletBtn.textContent = `✓ ${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+            walletBtn.classList.add('connected');
+
+            walletOptions.style.display = 'none';
+            walletInfo.style.display = 'block';
+            disconnectBtn.style.display = 'block';
+            errorMsg.style.display = 'none';
+
+            document.getElementById('modal-title').textContent = 'Wallet Connected!';
+            document.getElementById('modal-description').textContent = 'Your wallet is now connected to NYVRIX';
+        }
+
+        function disconnectWallet() {
+            provider = null;
+            signer = null;
+            userAddress = null;
+
+            walletBtn.textContent = 'Connect Wallet';
+            walletBtn.classList.remove('connected');
+
+            walletOptions.style.display = 'block';
+            walletInfo.style.display = 'none';
+            disconnectBtn.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            document.getElementById('modal-title').textContent = 'Connect Your Wallet';
+            document.getElementById('modal-description').textContent = 'Choose a wallet to connect to NYVRIX';
+
+            console.log('Wallet disconnected');
+        }
+
+        disconnectBtn.addEventListener('click', disconnectWallet);
+
+        // Close modal on outside click
+        walletModal.addEventListener('click', (e) => {
+            if (e.target === walletModal) {
+                closeWalletModal();
+            }
+        });
+    </script>
+</body>
+</html>
