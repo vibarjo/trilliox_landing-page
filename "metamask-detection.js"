@@ -1,0 +1,83 @@
+// Enhanced detection with fallback handling
+function isMetaMaskInstalled() {
+    // Check if window.ethereum exists
+    if (typeof window.ethereum !== 'undefined') {
+        console.log('✓ window.ethereum detected');
+        return true;
+    }
+    
+    // Fallback: Check for MetaMask provider
+    if (typeof window !== 'undefined' && window.ethereum && window.ethereum.isMetaMask) {
+        console.log('✓ MetaMask provider confirmed');
+        return true;
+    }
+    
+    console.log('✗ MetaMask not found');
+    return false;
+}
+
+// Detect specific MetaMask provider
+function getMetaMaskProvider() {
+    if (typeof window.ethereum !== 'undefined') {
+        // If multiple providers exist, try to get MetaMask specifically
+        if (window.ethereum.providers && Array.isArray(window.ethereum.providers)) {
+            return window.ethereum.providers.find(provider => provider.isMetaMask) || window.ethereum;
+        }
+        return window.ethereum;
+    }
+    return null;
+}
+
+// Safe connection attempt
+async function safeConnectWallet() {
+    // Step 1: Detection
+    if (!isMetaMaskInstalled()) {
+        handleMetaMaskNotFound();
+        return;
+    }
+
+    // Step 2: Get provider
+    const provider = getMetaMaskProvider();
+    if (!provider) {
+        showError('Failed to retrieve MetaMask provider');
+        return;
+    }
+
+    // Step 3: Request connection
+    try {
+        const accounts = await provider.request({ method: 'eth_requestAccounts' });
+        console.log('Connected accounts:', accounts);
+    } catch (error) {
+        handleConnectionError(error);
+    }
+}
+
+function handleMetaMaskNotFound() {
+    const message = isMobileDevice() 
+        ? 'Please open this site in MetaMask mobile browser or use MetaMask app.'
+        : 'MetaMask is not installed. Click below to install.';
+    
+    showError(message);
+    
+    // Update button to redirect to download
+    const connectBtn = document.getElementById('connect-wallet-btn');
+    if (connectBtn) {
+        connectBtn.textContent = '📥 Install MetaMask';
+        connectBtn.onclick = () => {
+            window.open('https://metamask.io/download/', '_blank');
+        };
+    }
+}
+
+function handleConnectionError(error) {
+    console.error('Connection error:', error);
+    
+    const errorMessages = {
+        4001: 'You rejected the connection request. Please try again.',
+        '-32002': 'A connection request is already pending. Check your MetaMask.',
+        '-32603': 'Internal MetaMask error. Please restart and try again.',
+    };
+    
+    const message = errorMessages[error.code] || error.message || 'Failed to connect wallet';
+    showError(message);
+}
