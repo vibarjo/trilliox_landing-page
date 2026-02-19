@@ -1,0 +1,78 @@
+// Comprehensive mobile device detection
+function isMobileDevice() {
+    // Method 1: User agent check
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+    const mobilePatterns = [
+        /android/i,           // Android
+        /webos/i,              // WebOS
+        /iphone/i,             // iPhone
+        /ipad/i,               // iPad
+        /ipod/i,               // iPod
+        /blackberry/i,         // BlackBerry
+        /windows phone/i,      // Windows Phone
+        /opera mini/i          // Opera Mini
+    ];
+    
+    return mobilePatterns.some(pattern => pattern.test(userAgent));
+}
+
+// More specific mobile checks
+function getMobileInfo() {
+    const userAgent = navigator.userAgent;
+    
+    return {
+        isAndroid: /android/i.test(userAgent),
+        isIOS: /iphone|ipad|ipod/i.test(userAgent),
+        isMetaMaskApp: /MetaMaskMobile/.test(userAgent),
+        isBrowserApp: /MetaMaskMobile|Metamask|MetaMask/.test(userAgent),
+        isMobile: /android|webos|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent),
+        touchSupport: () => {
+            return (('ontouchstart' in window) ||
+                    (navigator.maxTouchPoints > 0) ||
+                    (navigator.msMaxTouchPoints > 0));
+        }
+    };
+}
+
+// Detect if running in MetaMask mobile app browser
+function isMetaMaskMobileApp() {
+    const mobileInfo = getMobileInfo();
+    return mobileInfo.isMetaMaskApp || mobileInfo.isBrowserApp;
+}
+
+// Get the appropriate connection method for device
+function getOptimalConnectionMethod() {
+    const info = getMobileInfo();
+    
+    if (!info.isMobile) {
+        return 'desktop';  // Use MetaMask extension
+    }
+    
+    if (isMetaMaskMobileApp()) {
+        return 'metamask_app';  // Already in MetaMask app
+    }
+    
+    // Mobile device but not in MetaMask app
+    return 'deeplink';  // Offer deep link
+}
+
+// Usage example
+function handleWalletConnection() {
+    const method = getOptimalConnectionMethod();
+    
+    switch(method) {
+        case 'desktop':
+            console.log('→ Desktop user: Use MetaMask extension');
+            connectWalletDesktop();
+            break;
+        case 'metamask_app':
+            console.log('→ MetaMask app user: Direct connection');
+            connectWalletDirect();
+            break;
+        case 'deeplink':
+            console.log('→ Mobile user: Show deep link button');
+            showMetaMaskDeepLink();
+            break;
+    }
+}
