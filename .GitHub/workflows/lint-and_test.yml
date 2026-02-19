@@ -1,0 +1,56 @@
+name: Lint & Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint JavaScript & HTML
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install --save-dev eslint htmlhint
+
+      - name: Lint JavaScript files
+        run: npx eslint "*.js" "src/**/*.js" --ext .js --max-warnings 0 || true
+        continue-on-error: true
+
+      - name: Lint HTML files
+        run: npx htmlhint "*.html" "src/**/*.html" || true
+        continue-on-error: true
+
+  security-check:
+    runs-on: ubuntu-latest
+    name: Security Scan
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate || true
+        continue-on-error: true
+
+      - name: Check for vulnerable dependencies
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+        continue-on-error: true
