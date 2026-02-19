@@ -1,0 +1,151 @@
+// Network configuration - update based on your needs
+const SUPPORTED_NETWORKS = {
+    1: { name: 'Ethereum Mainnet', color: '#627eea', type: 'mainnet' },
+    11155111: { name: 'Sepolia Testnet', color: '#00ffff', type: 'testnet' }, // SEPOLIA
+    5: { name: 'Goerli Testnet', color: '#ff00ff', type: 'testnet' },        // Deprecated
+    137: { name: 'Polygon Mainnet', color: '#8247e5', type: 'mainnet' },
+    80001: { name: 'Polygon Mumbai', color: '#9d86ff', type: 'testnet' },
+    56: { name: 'BSC Mainnet', color: '#f3ba2f', type: 'mainnet' },
+    97: { name: 'BSC Testnet', color: '#ffe600', type: 'testnet' }
+};
+
+// The network your app should run on
+const REQUIRED_NETWORK_ID = 11155111; // Sepolia Testnet
+
+// Get current network from user's wallet
+async function getCurrentNetwork(provider) {
+    try {
+        const network = await provider.getNetwork();
+        return {
+            chainId: network.chainId,
+            name: network.name,
+            isSupported: SUPPORTED_NETWORKS[network.chainId] !== undefined,
+            isRequired: network.chainId === REQUIRED_NETWORK_ID
+        };
+    } catch (error) {
+        console.error('Failed to get network:', error);
+        return null;
+    }
+}
+
+// Check if user is on the correct network
+async function validateNetwork(provider) {
+    const network = await getCurrentNetwork(provider);
+    
+    if (!network) {
+        return { valid: false, message: 'Could not detect network' };
+    }
+    
+    if (!network.isSupported) {
+        return { 
+            valid: false, 
+            message: `⚠️ Unsupported network: ${network.name}. Please switch to a supported network.`,
+            suggestedNetworkId: REQUIRED_NETWORK_ID
+        };
+    }
+    
+    if (!network.isRequired) {
+        return { 
+            valid: false, 
+            message: `⚠️ Wrong network! You're on ${network.name}. Please switch to ${SUPPORTED_NETWORKS[REQUIRED_NETWORK_ID].name}.`,
+            currentNetwork: network,
+            requiredNetworkId: REQUIRED_NETWORK_ID
+        };
+    }
+    
+    return { 
+        valid: true, 
+        message: `✓ Connected to ${network.name}`,
+        network: network
+    };
+}
+
+// Show network warning banner
+function displayNetworkWarning(validationResult) {
+    let warningHTML = '';
+    
+    if (!validationResult.valid) {
+        const bgColor = validationResult.suggestedNetworkId ? '#fff3cd' : '#f8d7da';
+        const textColor = validationResult.suggestedNetworkId ? '#856404' : '#721c24';
+        
+        warningHTML = `
+            <div class="network-warning" style="
+                padding: 12px 16px;
+                margin-bottom: 15px;
+                background-color: ${bgColor};
+                border-left: 4px solid ${textColor};
+                color: ${textColor};
+                border-radius: 4px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <span>${validationResult.message}</span>
+                ${validationResult.suggestedNetworkId ? `
+                    <button onclick="switchNetwork(${validationResult.suggestedNetworkId})" style="
+                        padding: 6px 12px;
+                        background: ${textColor};
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    ">
+                        Switch Network
+                    </button>
+                ` : ''}
+            </div>
+        `;
+    }
+    
+    const container = document.getElementById('wallet-info');
+    if (container) {
+        container.insertAdjacentHTML('afterbegin', warningHTML);
+    }
+}
+
+// Request user to switch network
+async function switchNetwork(chainId) {
+    try {
+        const hexChainId = '0x' + chainId.toString(16);
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: hexChainId }]
+        });
+        console.log(`✓ Switched to chain ${chainId}`);
+    } catch (error) {
+        if (error.code === 4902) {
+            // Network not added to MetaMask, prompt user to add it
+            console.log('Network not found in MetaMask, prompting to add...');
+            // You can implement addNetwork() here if needed
+        } else {
+            console.error('Failed to switch network:', error);
+            showError(`Failed to switch network: ${error.message}`);
+        }
+    }
+}
+
+// Listen for network changes
+function setupNetworkListener(provider) {
+    if (window.ethereum) {
+        window.ethereum.on('chainChanged', (chainId) => {
+            console.log(`Network changed to: ${parseInt(chainId, 16)}`);
+            // Reload or update UI
+            location.reload();
+        });
+    }
+}
+
+// Complete network validation on connection
+async function ensureCorrectNetwork() {
+    if (!provider) return false;
+    
+    const validation = await validateNetwork(provider);
+    displayNetworkWarning(validation);
+    
+    if (!validation.valid && validation.suggestedNetworkId) {
+        // Optionally auto-prompt network switch
+        // await switchNetwork(validation.suggestedNetworkId);
+    }
+    
+    return validation.valid;
+}
