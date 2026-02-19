@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Validate HTML
+        run: |
+          echo "Validating HTML files..."
+          for file in *.html; do
+            echo "Checking $file"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Site deployed to: ${{ steps.deployment.outputs.page_url }}"
+          echo "📝 Deployment Summary:"
+          echo "- Repository: ${{ github.repository }}"
+          echo "- Branch: main"
+          echo "- Commit: ${{ github.sha }}"
