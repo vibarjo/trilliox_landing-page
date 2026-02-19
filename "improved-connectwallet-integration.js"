@@ -1,0 +1,67 @@
+// Complete improved connectWallet function
+async function improvedConnectWallet() {
+    try {
+        // Step 1: Detect MetaMask
+        if (!isMetaMaskInstalled()) {
+            handleMetaMaskNotFound();
+            return;
+        }
+
+        connectWalletBtn.textContent = 'Connecting...';
+        connectWalletBtn.disabled = true;
+
+        // Step 2: Get provider
+        const provider = getMetaMaskProvider();
+        if (!provider) {
+            showError('Failed to get MetaMask provider');
+            return;
+        }
+
+        // Step 3: Request connection
+        const accounts = await provider.request({ method: 'eth_requestAccounts' });
+        if (accounts.length === 0) throw new Error('No accounts found');
+
+        userAddress = accounts[0];
+        console.log('✓ Connected:', userAddress);
+
+        // Step 4: Create ethers provider
+        const ethersProvider = new ethers.providers.Web3Provider(provider);
+        signer = await ethersProvider.getSigner();
+
+        // Step 5: Validate network
+        const networkValid = await ensureCorrectNetwork();
+        if (!networkValid) {
+            console.warn('Connected but on wrong network');
+        }
+
+        // Step 6: Get balance
+        const balanceWei = await ethersProvider.getBalance(userAddress);
+        const balance = ethers.utils.formatEther(balanceWei);
+
+        // Step 7: Get network info
+        const network = await ethersProvider.getNetwork();
+
+        console.log('✓ Balance:', balance, 'ETH');
+        console.log('✓ Network:', network.name);
+
+        // Step 8: Update UI
+        updateConnectionStatus(true, userAddress);
+        updateStatusBadge(true, userAddress);
+        displayWalletInfo(userAddress, balance, network.chainId);
+
+        // Step 9: Setup listeners
+        setupNetworkListener(ethersProvider);
+
+        // Show success
+        modalTitle.textContent = 'Wallet Connected!';
+        modalDescription.textContent = `Welcome to NYVRIX, ${userAddress.substring(0, 6)}...`;
+        connectWalletBtn.style.display = 'none';
+        disconnectWalletBtn.style.display = 'block';
+
+    } catch (error) {
+        handleConnectionError(error);
+    } finally {
+        connectWalletBtn.textContent = 'Connect MetaMask';
+        connectWalletBtn.disabled = false;
+    }
+}
