@@ -1,0 +1,77 @@
+// Deep link configuration
+const DEEP_LINK_CONFIG = {
+    // Your website URL - update this
+    website: 'https://nyvrix.com',  // Change to your actual domain
+    appLink: 'https://metamask.app.link/dapp/'
+};
+
+// Generate MetaMask deep link
+function generateMetaMaskDeepLink() {
+    const currentUrl = window.location.origin + window.location.pathname;
+    return `${DEEP_LINK_CONFIG.appLink}${currentUrl}`;
+}
+
+// Create deep link button UI
+function createDeepLinkButton() {
+    const deepLinkUrl = generateMetaMaskDeepLink();
+    
+    return `
+        <div class="metamask-deeplink-container">
+            <p style="margin-bottom: 15px; color: #666;">
+                📱 You're on mobile. Open this site in MetaMask app for the best experience.
+            </p>
+            <a href="${deepLinkUrl}" 
+               class="deeplink-btn" 
+               style="
+                   display: inline-block;
+                   padding: 12px 24px;
+                   background: linear-gradient(135deg, #f6851b 0%, #f9a825 100%);
+                   color: white;
+                   border-radius: 8px;
+                   text-decoration: none;
+                   font-weight: bold;
+                   cursor: pointer;
+                   transition: transform 0.2s;
+               "
+               onmouseover="this.style.transform='scale(1.05)'"
+               onmouseout="this.style.transform='scale(1)'">
+                🦊 Open in MetaMask App
+            </a>
+            
+            <p style="margin-top: 15px; font-size: 0.9em; color: #999;">
+                Don't have MetaMask? 
+                <a href="https://metamask.io/download/" target="_blank">Download here</a>
+            </p>
+        </div>
+    `;
+}
+
+// Show deep link when on mobile without MetaMask app
+function showMetaMaskDeepLink() {
+    const info = getMobileInfo();
+    
+    if (info.isMobile && !isMetaMaskMobileApp()) {
+        const modal = document.getElementById('wallet-modal');
+        if (modal) {
+            const content = modal.querySelector('.wallet-content') || modal;
+            content.innerHTML = createDeepLinkButton();
+        }
+    }
+}
+
+// Alternative: Use window.location to trigger deep link
+function triggerMetaMaskDeepLink() {
+    const deepLinkUrl = generateMetaMaskDeepLink();
+    window.location.href = deepLinkUrl;
+}
+
+// Fallback if deep link doesn't work
+function fallbackToDownload() {
+    const info = getMobileInfo();
+    
+    if (info.isAndroid) {
+        window.open('https://play.google.com/store/apps/details?id=io.metamask', '_blank');
+    } else if (info.isIOS) {
+        window.open('https://apps.apple.com/us/app/metamask/id1438144202', '_blank');
+    }
+}
