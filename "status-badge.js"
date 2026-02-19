@@ -1,0 +1,116 @@
+// Status badge indicator component
+function createStatusBadge(isConnected, address = null) {
+    if (isConnected && address) {
+        return `
+            <div class="status-badge connected" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                background: rgba(34, 197, 94, 0.1);
+                border: 1px solid #22c55e;
+                border-radius: 6px;
+                color: #22c55e;
+                font-weight: 600;
+                font-size: 0.9em;
+            ">
+                <span style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    background: #22c55e;
+                    border-radius: 50%;
+                    animation: pulse 2s infinite;
+                "></span>
+                <span>Connected</span>
+                <span style="opacity: 0.7;">${address.substring(0, 6)}...${address.substring(38)}</span>
+            </div>
+        `;
+    } else {
+        return `
+            <div class="status-badge disconnected" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                background: rgba(239, 68, 68, 0.1);
+                border: 1px solid #ef4444;
+                border-radius: 6px;
+                color: #ef4444;
+                font-weight: 600;
+                font-size: 0.9em;
+            ">
+                <span style="
+                    display: inline-block;
+                    width: 8px;
+                    height: 8px;
+                    background: #ef4444;
+                    border-radius: 50%;
+                "></span>
+                <span>Disconnected</span>
+            </div>
+        `;
+    }
+}
+
+// Add CSS animation for pulse effect
+function addStatusBadgeStyles() {
+    const styleId = 'status-badge-styles';
+    if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+            
+            .status-badge {
+                transition: all 0.3s ease;
+            }
+            
+            .status-badge.connected:hover {
+                background: rgba(34, 197, 94, 0.2);
+                border-color: #16a34a;
+            }
+            
+            .status-badge.disconnected:hover {
+                background: rgba(239, 68, 68, 0.2);
+                border-color: #dc2626;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Update status badge in UI
+function updateStatusBadge(isConnected, address = null) {
+    const badgeContainer = document.getElementById('wallet-status-badge') || 
+                          document.getElementById('wallet-btn').parentElement;
+    
+    if (badgeContainer) {
+        const newBadge = createStatusBadge(isConnected, address);
+        const existingBadge = badgeContainer.querySelector('.status-badge');
+        
+        if (existingBadge) {
+            existingBadge.outerHTML = newBadge;
+        } else {
+            badgeContainer.insertAdjacentHTML('afterbegin', newBadge);
+        }
+    }
+}
+
+// Usage in connection flow
+function updateConnectionStatus(isConnected, address = null) {
+    addStatusBadgeStyles();
+    updateStatusBadge(isConnected, address);
+    
+    // Update button text
+    const walletBtn = document.getElementById('wallet-btn');
+    if (walletBtn) {
+        walletBtn.textContent = isConnected 
+            ? `✓ ${address.substring(0, 6)}...${address.substring(38)}`
+            : 'Connect Wallet';
+        walletBtn.classList.toggle('connected', isConnected);
+    }
+}
