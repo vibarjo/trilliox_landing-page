@@ -1,0 +1,71 @@
+name: Performance Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  file-size-check:
+    runs-on: ubuntu-latest
+    name: Check File Sizes
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Analyze file sizes
+        run: |
+          echo "📊 File Size Analysis"
+          echo "===================="
+          
+          # Check JavaScript files
+          echo ""
+          echo "JavaScript Files:"
+          du -sh *.js 2>/dev/null | sort -h || echo "No .js files in root"
+          
+          # Check HTML files
+          echo ""
+          echo "HTML Files:"
+          du -sh *.html 2>/dev/null | sort -h || echo "No .html files in root"
+          
+          # Check CSS files
+          echo ""
+          echo "CSS Files:"
+          du -sh *.css 2>/dev/null | sort -h || echo "No .css files in root"
+          
+          # Total size
+          echo ""
+          echo "Total Repository Size:"
+          du -sh . | tail -1
+          
+          echo ""
+          echo "⚠️ Alert: Files over 100KB"
+          find . -size +100k -type f | grep -E '\.(js|html|css)$' || echo "None found"
+
+  broken-links-check:
+    runs-on: ubuntu-latest
+    name: Check for Broken Links
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check links in HTML
+        run: |
+          echo "Checking for broken relative links in HTML files..."
+          
+          for html_file in *.html; do
+            echo "Scanning $html_file..."
+            # Extract href and src attributes
+            grep -oE '(href|src)="[^"]*"' "$html_file" | while read attr; do
+              url=$(echo "$attr" | cut -d'"' -f2)
+              # Skip external URLs and anchors
+              if [[ ! "$url" =~ ^http && ! "$url" =~ ^# && ! "$url" =~ ^mailto: ]]; then
+                if [ ! -e "$url" ] && [ ! -e "$(basename "$url")" ]; then
+                  echo "⚠️ Potentially broken link: $url in $html_file"
+                fi
+              fi
+            done
+          done
+          
+          echo "✅ Link check complete"
