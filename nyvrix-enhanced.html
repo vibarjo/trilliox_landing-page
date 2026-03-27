@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYVRIX - The Future of Decentralized Finance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --bg: #0a0e27;
+            --bg-light: #141829;
+            --text: #ffffff;
+            --text-muted: #a0aec0;
+            --accent: #ff006e;
+            --success: #00d97e;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #0f1838 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(20, 24, 41, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .connect-btn {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .connect-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #00f0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%);
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(20, 24, 41, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            background: rgba(20, 24, 41, 0.6);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(20, 24, 41, 0.5) 0%, rgba(20, 24, 41, 0.2) 100%);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Trust Section */
+        .trust {
+            padding: 4rem 2rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-title {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            background: rgba(20, 24, 41, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            border-color: var(--primary);
+            background: rgba(20, 24, 41, 0.7);
+        }
+
+        .badge-icon {
+            font-size: 1.5rem;
+        }
+
+        .badge-text {
+            text-align: left;
+        }
+
+        .badge-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-value {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: rgba(20, 24, 41, 0.5);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            user-select: none;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(20, 24, 41, 0.7);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 1.5rem;
+        }
+
+        .faq-answer p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 0, 110, 0.05) 100%);
+            text-align: center;
+            margin-bottom: 4rem;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .newsletter p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 6px;
+            background: rgba(20, 24, 41, 0.8);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(20, 24, 41, 0.95);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: rgba(10, 14, 39, 0.8);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">NYVRIX</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <button class="connect-btn">Connect Wallet</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Welcome to NYVRIX</h1>
+        <p>The Future of Decentralized Finance</p>
+        <button class="cta-button">Explore Now</button>
+    </section>
+
+    <!-- Stats Dashboard -->
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-number">$2.4B</div>
+            <div class="stat-label">Total Value Locked</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">145K+</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">$890M</div>
+            <div class="stat-label">24h Volume</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">Uptime</div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust">
+        <div class="trust-container">
+            <div class="trust-title">Trusted by the Community</div>
+            <div class="badges">
+                <div class="badge">
+                    <div class="badge-icon">🔒</div>
+                    <div class="badge-text">
+                        <div class="badge-label">Audited By</div>
+                        <div class="badge-value">CertiK</div>
+                    </div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">✓</div>
+                    <div class="badge-text">
+                        <div class="badge-label">Insured</div>
+                        <div class="badge-value">Nexus Mutual</div>
+                    </div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">⭐</div>
+                    <div class="badge-text">
+                        <div class="badge-label">Rated</div>
+                        <div class="badge-value">4.9/5.0</div>
+                    </div>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">🌐</div>
+                    <div class="badge-text">
+                        <div class="badge-label">Available On</div>
+                        <div class="badge-value">7 Chains</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why NYVRIX?</h2>
+        <p class="section-subtitle">Powerful features designed for modern DeFi</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>Sub-second transaction confirmation with optimized smart contracts and network routing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Battle-Tested Security</h3>
+                <p>Audited by industry leaders. Multi-signature wallets and advanced threat detection.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Ultra Low Fees</h3>
+                <p>Trade with minimal slippage. Our efficient protocol cuts trading costs by 90%.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>User-Driven Governance</h3>
+                <p>Your voice matters. Stake NYVRIX tokens and vote on protocol upgrades and treasury allocation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Cross-Chain Liquidity</h3>
+                <p>Seamless bridging across Ethereum, Polygon, Arbitrum, and more. One platform, infinite possibilities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Advanced Analytics</h3>
+                <p>Real-time dashboards, price charts, and portfolio tracking. Make informed decisions instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know</p>
+        
+        <div class="faq-item active">
+            <div class="faq-question">
+                <span>How do I get started with NYVRIX?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Simply connect your wallet using MetaMask or your preferred Web3 wallet. Deposit funds, and you're ready to start trading. We have a beginner's guide and video tutorials to help you get started in minutes.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What are the supported networks?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>NYVRIX is available on Ethereum, Polygon, Arbitrum, Optimism, Avalanche, and Fantom. We're constantly adding support for new networks based on community feedback.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is my money safe?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes. Our smart contracts are audited by CertiK, and we maintain comprehensive insurance through Nexus Mutual. Additionally, your funds are held in non-custodial wallets under your complete control.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What fees do you charge?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>We charge 0.25% on swaps and 0.04% on stable swaps. These fees are among the lowest in DeFi and go directly to liquidity providers and the treasury.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How can I earn rewards?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Provide liquidity to earn swap fees. Stake NYVRIX tokens to earn protocol revenue. Participate in governance to earn voting rewards. Multiple ways to grow your wealth.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How do I participate in governance?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Hold NYVRIX tokens and delegate them (to yourself or others). Vote on proposals in our DAO. Top voters earn rewards. Your stake determines your voting power.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>Stay Connected</h2>
+        <p>Get the latest updates and announcements delivered to your inbox</p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" title="Twitter">𝕏</a>
+            <a href="#" title="Discord">💬</a>
+            <a href="#" title="GitHub">💻</a>
+            <a href="#" title="LinkedIn">📎</a>
+        </div>
+        <p>&copy; 2024 NYVRIX. All rights reserved. | <a href="#" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Newsletter Form
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Thanks for subscribing! We'll send updates to ${email}`);
+            e.target.reset();
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = e.target.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Animate stats on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
