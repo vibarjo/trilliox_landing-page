@@ -3,20 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trilliox Landing Page</title>
+    <title>NYVRIX - Decentralized Finance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background-color: #000;
+            padding: 20px 0;
+            border-bottom: 1px solid #00ffea;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ffea;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ffea;
+        }
+
+        .socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .socials a {
+            color: #fff;
+            font-size: 1.3em;
+            transition: color 0.3s;
+        }
+
+        .socials a:hover {
+            color: #00ffea;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, #00ffea 0%, #00c6ff 100%);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .connect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 234, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            text-align: center;
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-heading {
+            font-size: 4em;
+            color: #00ffea;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 234, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.8em;
+            color: #ccc;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00ffea 0%, #00c6ff 100%);
+            color: #000;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 234, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 80px 20px;
+            margin-top: 60px;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: #00ffea;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 234, 0.05);
+            border: 2px solid #00ffea;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(0, 255, 234, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 255, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            color: #00ffea;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            color: #00ffea;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #ccc;
+            font-size: 0.95em;
+        }
+
+        /* DeFi Power Section */
+        .defi-power {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .defi-box {
+            border: 2px solid #00ffea;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            background: rgba(0, 255, 234, 0.05);
+        }
+
+        .defi-box h2 {
+            font-size: 2.5em;
+            color: #00ffea;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
+        }
+
+        .defi-box p {
+            font-size: 1.1em;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            border-top: 1px solid #00ffea;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #00ffea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-socials a {
+            color: #00ffea;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5em;
+            }
+
+            .tagline {
+                font-size: 1.3em;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .feature-card {
+                padding: 25px;
+            }
+
+            .defi-box {
+                padding: 30px;
+            }
+
+            .defi-box h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Trilliox</h1>
-    </header>
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="https://x.com/dappho5">X</a></li>
-                <li><a href="https://www.linkedin.com/in/dappho-undefined-7a87313b8">LinkedIn</a></li>
-                <li><a href="https://www.instagram.com/dappho2026?igsh=MTF6cWM3b2poeGNzdg==&utm_source=ig_contact_invite">Instagram</a></li>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">NYVRIX</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#blog">Blog</a></li>
             </ul>
+            <div class="socials">
+                <a href="https://x.com/dappho5" class="fa fa-twitter"></a>
+                <a href="https://www.linkedin.com/in/dappho-undefined-7a87313b8" class="fa fa-linkedin"></a>
+                <a href="https://www.instagram.com/dappho2026" class="fa fa-instagram"></a>
+                <button class="connect-btn">Connect Wallet</button>
+            </div>
         </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content" id="home">
+        <h1 class="main-heading">Welcome to NYVRIX</h1>
+        <p class="tagline">The Future of Decentralized Finance</p>
+        <button class="cta-button">Explore Now</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">Why Choose NYVRIX?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Secure</h3>
+                    <p>Advanced encryption and blockchain technology ensure your assets are always safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast</h3>
+                    <p>Lightning-quick transactions without intermediaries or delays.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Decentralized</h3>
+                    <p>Fully decentralized platform giving you complete control of your finances.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Transparent</h3>
+                    <p>All transactions are transparent and verifiable on the blockchain.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Profitable</h3>
+                    <p>Earn competitive returns on your digital assets through DeFi protocols.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Community Driven</h3>
+                    <p>Join a vibrant community of DeFi enthusiasts and investors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DeFi Power Section -->
+    <section class="defi-power" id="about">
+        <div class="defi-box">
+            <h2>DeFi Power</h2>
+            <p>
+                NYVRIX harnesses the power of decentralized finance to provide secure, transparent, 
+                and accessible financial services using blockchain technology. Our mission is to empower 
+                individuals and businesses to take control of their finances without relying on traditional 
+                intermediaries. Whether you're a beginner or an expert, our platform makes DeFi easy to 
+                understand and use.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">Contact</a>
+        </div>
+        <div class="footer-socials">
+            <a href="https://x.com/dappho5" class="fa fa-twitter"></a>
+            <a href="https://www.linkedin.com/in/dappho-undefined-7a87313b8" class="fa fa-linkedin"></a>
+            <a href="https://www.instagram.com/dappho2026" class="fa fa-instagram"></a>
+        </div>
+        <p>&copy; 2026 NYVRIX - All Rights Reserved</p>
+        <p>Decentralized Finance for Everyone</p>
     </footer>
 </body>
 </html>
