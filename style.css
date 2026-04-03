@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-    background-color: #0d0d0d;
+    background-color: #000000;
     padding: 20px;
 }
 
@@ -49,18 +49,18 @@ body {
     font-size: 3em;
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
-    color: #00e0ff;
+    color: #FFFFFF;
     letter-spacing: 2px;
 }
 
 .tagline {
     font-size: 1.5em;
     margin-top: 10px;
-    color: #c9c9c9;
+    color: #FFFFFF;
 }
 
 .cta-button {
-    background-color: #00e0ff;
+    background-color: #FFFFFF;
     color: #000;
     border: none;
     padding: 15px 30px;
@@ -77,13 +77,13 @@ body {
 .section-title {
     font-family: 'Times New Roman', Times, serif;
     font-size: 2em;
-    color: #00e0ff;
+    color: #FFFFFF;
     text-align: center;
     margin-bottom: 20px;
 }
 
 .content-box {
-    border: 2px solid #00e0ff;
+    border: 2px solid #FFFFFF;
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
@@ -92,7 +92,7 @@ body {
 }
 
 .form-section {
-    background-color: #0d0d0d;
+    background-color: #000000;
 }
 
 .contact-form {
@@ -113,7 +113,7 @@ body {
 }
 
 .contact-form button {
-    background-color: #00e0ff;
+    background-color: #FFFFFF;
     color: #000;
     cursor: pointer;
 }
@@ -125,12 +125,12 @@ body {
     margin: 50px auto;
     padding: 20px;
     text-align: left;
-    color: #e0e0e0;
+    color: #FFFFFF;
 }
 
 h1, h2 {
     font-family: 'Times New Roman', Times, serif;
-    color: #00e0ff;
+    color: #FFFFFF;
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
